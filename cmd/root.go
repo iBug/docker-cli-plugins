@@ -5,8 +5,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
+// RootCmd represents the base command when called without any subcommands
+var RootCmd = &cobra.Command{
 	Use:   "ibug",
 	Short: "iBug's Docker CLI plugin",
 	Run: func(cmd *cobra.Command, args []string) {
@@ -14,6 +14,7 @@ var rootCmd = &cobra.Command{
 	},
 }
 
+// MakeCmd implements the first argument for docker/cli/cli-plugins/plugin.Run
 func MakeCmd(dockerCli command.Cli) *cobra.Command {
-	return rootCmd
+	return RootCmd
 }
