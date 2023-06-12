@@ -1,2 +1,5 @@
-# docker-cli-plugins
-My Docker CLI plugins
+# iBug's Docker CLI plugin
+
+```
+docker ibug
+```
