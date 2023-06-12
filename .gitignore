@@ -8,6 +8,7 @@
 *.so
 *.dylib
 docker-ibug
+docker-ibug.gz
 
 # Test binary, built with `go test -c`
 *.test
