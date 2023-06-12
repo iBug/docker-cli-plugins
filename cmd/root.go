@@ -15,7 +15,11 @@ var RootCmd = &cobra.Command{
 	},
 }
 
+// DockerCli is the Docker CLI interface
+var DockerCli command.Cli
+
 // MakeCmd implements the first argument for docker/cli/cli-plugins/plugin.Run
 func MakeCmd(dockerCli command.Cli) *cobra.Command {
+	DockerCli = dockerCli
 	return RootCmd
 }
