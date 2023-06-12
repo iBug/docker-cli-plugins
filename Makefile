@@ -1,7 +1,16 @@
+BIN = docker-ibug
+
 GO ?= go
 LDFLAGS = -s -w
 
-.PHONY: all
+.PHONY: all gzip $(BIN)
 
-all:
+all: $(BIN)
+
+gzip: $(BIN).gz
+
+$(BIN):
 	$(GO) build -ldflags="$(LDFLAGS)" .
+
+$(BIN).gz: $(BIN)
+	gzip -k9 $^
