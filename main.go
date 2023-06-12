@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/iBug/docker-ibug/cmd"
+	_ "github.com/iBug/docker-ibug/cmd/update"
 
 	"github.com/docker/cli/cli-plugins/manager"
 	"github.com/docker/cli/cli-plugins/plugin"
