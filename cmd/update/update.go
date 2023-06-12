@@ -9,8 +9,8 @@ import (
 var UpdateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Update this tool",
-	RunE: func(cmd *cobra.Command, args []string) error {
-		return updater.UpdateBinary()
+	RunE: func(c *cobra.Command, args []string) error {
+		return updater.UpdateBinary(cmd.DockerCli.Out())
 	},
 }
 

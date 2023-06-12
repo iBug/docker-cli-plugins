@@ -81,7 +81,7 @@ func DownloadFile(w *os.File, url string) error {
 	return err
 }
 
-func UpdateBinary() error {
+func UpdateBinary(w io.Writer) error {
 	err := CanUpdate()
 	if err != nil {
 		return err
@@ -90,15 +90,13 @@ func UpdateBinary() error {
 	if err != nil {
 		return err
 	}
-	dir, err := InstallDir()
-	if err != nil {
-		return err
-	}
+	dir, _ := InstallDir()
 	out, err := os.CreateTemp(dir, Filename+".*")
 	if err != nil {
 		return err
 	}
 	url := fmt.Sprintf("%s/releases/download/%s/%s.gz", Repository, tag, Filename)
+	fmt.Fprintf(w, "Downloading from %s\n", url)
 	err = DownloadFile(out, url)
 	if err != nil {
 		return err
