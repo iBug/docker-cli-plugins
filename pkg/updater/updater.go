@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/iBug/docker-ibug/pkg/version"
 	"golang.org/x/sys/unix"
 )
 
@@ -86,14 +87,19 @@ func UpdateBinary(w io.Writer) error {
 	if err != nil {
 		return err
 	}
+	dir, _ := InstallDir()
+	out, err := os.CreateTemp(dir, Filename+".*")
+	defer os.Remove(out.Name())
+	if err != nil {
+		return err
+	}
 	tag, err := GetLatestTag(Repository)
 	if err != nil {
 		return err
 	}
-	dir, _ := InstallDir()
-	out, err := os.CreateTemp(dir, Filename+".*")
-	if err != nil {
-		return err
+	if tag == version.Version {
+		fmt.Fprintf(w, "Already up to date: %s\n", tag)
+		return nil
 	}
 	url := fmt.Sprintf("%s/releases/download/%s/%s.gz", Repository, tag, Filename)
 	fmt.Fprintf(w, "Downloading from %s\n", url)

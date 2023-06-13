@@ -3,16 +3,11 @@ package main
 import (
 	"github.com/iBug/docker-ibug/cmd"
 	_ "github.com/iBug/docker-ibug/cmd/update"
+	"github.com/iBug/docker-ibug/pkg/version"
 
-	"github.com/docker/cli/cli-plugins/manager"
 	"github.com/docker/cli/cli-plugins/plugin"
 )
 
-var metadata = manager.Metadata{
-	SchemaVersion: "0.1.0",
-	Vendor:        "iBug",
-}
-
 func main() {
-	plugin.Run(cmd.MakeCmd, metadata)
+	plugin.Run(cmd.MakeCmd, version.Metadata)
 }

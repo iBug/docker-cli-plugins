@@ -1,7 +1,8 @@
 BIN = docker-ibug
+VERSION = $(shell scripts/version)
 
 GO ?= go
-LDFLAGS = -s -w
+LDFLAGS = -s -w -X github.com/iBug/docker-ibug/pkg/version.Version=$(VERSION)
 
 .PHONY: all gzip test $(BIN)
 
