@@ -10,6 +10,7 @@ import (
 var RootCmd = &cobra.Command{
 	Use:   "ibug",
 	Short: "iBug's Docker CLI plugin",
+	Args:  cobra.NoArgs,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
 	},

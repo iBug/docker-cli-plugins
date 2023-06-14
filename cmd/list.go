@@ -5,7 +5,6 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/iBug/docker-ibug/pkg/docker"
-	"github.com/iBug/docker-ibug/pkg/namesgenerator"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 )
@@ -28,15 +27,7 @@ func formatCommand(s string) string {
 	return s
 }
 
-func formatFlags(container *types.Container) string {
-	fIsAutoName := "-"
-	if namesgenerator.IsAutoName(strings.TrimPrefix(container.Names[0], "/")) {
-		fIsAutoName = "A"
-	}
-	return fIsAutoName
-}
-
-func ps(cmd *cobra.Command, args []string) error {
+func listContainers(cmd *cobra.Command, args []string) error {
 	client := docker.Cli.Client()
 	options := types.ContainerListOptions{
 		All: true,
@@ -59,9 +50,10 @@ func ps(cmd *cobra.Command, args []string) error {
 
 	table.SetHeader([]string{"Name", "Flags", "Image", "Command", "Status"})
 	for _, container := range containers {
+		flags := docker.GetContainerFlags(container)
 		table.Append([]string{
 			strings.TrimPrefix(container.Names[0], "/"),
-			formatFlags(&container),
+			flags.String(),
 			formatImage(container.Image),
 			formatCommand(container.Command),
 			container.Status,
@@ -71,12 +63,13 @@ func ps(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-var PsCmd = &cobra.Command{
-	Use:   "ps",
-	Short: "List containers",
-	RunE:  ps,
+var ListCmd = &cobra.Command{
+	Use:     "ls",
+	Short:   "List containers",
+	Aliases: []string{"list", "ps"},
+	RunE:    listContainers,
 }
 
 func init() {
-	RootCmd.AddCommand(PsCmd)
+	RootCmd.AddCommand(ListCmd)
 }
