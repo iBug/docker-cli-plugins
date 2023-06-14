@@ -4,6 +4,8 @@ go 1.20
 
 require (
 	github.com/docker/cli v24.0.2+incompatible
+	github.com/docker/docker v24.0.2+incompatible
+	github.com/olekukonko/tablewriter v0.0.5
 	github.com/spf13/cobra v1.7.0
 	golang.org/x/sys v0.8.0
 )
@@ -13,7 +15,6 @@ require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/beorn7/perks v0.0.0-20150223135152-b965b613227f // indirect
 	github.com/docker/distribution v2.8.2+incompatible // indirect
-	github.com/docker/docker v24.0.2+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.7.0 // indirect
 	github.com/docker/go v1.5.1-1.0.20160303222718-d30aec9fd63c // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
@@ -24,6 +25,7 @@ require (
 	github.com/golang/protobuf v1.3.4 // indirect
 	github.com/gorilla/mux v1.7.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/miekg/pkcs11 v1.0.2 // indirect
 	github.com/moby/sys/sequential v0.5.0 // indirect

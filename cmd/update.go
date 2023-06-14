@@ -1,7 +1,6 @@
-package update
+package cmd
 
 import (
-	"github.com/iBug/docker-ibug/cmd"
 	"github.com/iBug/docker-ibug/pkg/docker"
 	"github.com/iBug/docker-ibug/pkg/updater"
 	"github.com/spf13/cobra"
@@ -10,11 +9,11 @@ import (
 var UpdateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Update this tool",
-	RunE: func(c *cobra.Command, args []string) error {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		return updater.UpdateBinary(docker.Cli.Out())
 	},
 }
 
 func init() {
-	cmd.RootCmd.AddCommand(UpdateCmd)
+	RootCmd.AddCommand(UpdateCmd)
 }
