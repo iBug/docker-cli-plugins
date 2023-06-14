@@ -83,10 +83,13 @@ func DownloadFile(w *os.File, url string) error {
 	return err
 }
 
-func UpdateBinary(w io.Writer) error {
+func UpdateBinary(w io.Writer, force bool) error {
 	err := CanUpdate()
 	if err != nil {
-		return err
+		if !force {
+			return err
+		}
+		fmt.Fprintf(w, "Error: %v, continuing anyway\n", err)
 	}
 	dir, _ := InstallDir()
 	out, err := os.CreateTemp(dir, Filename+".*")
@@ -99,8 +102,11 @@ func UpdateBinary(w io.Writer) error {
 		return err
 	}
 	if tag == version.Version {
-		fmt.Fprintf(w, "Already up to date: %s\n", tag)
-		return nil
+		if !force {
+			fmt.Fprintf(w, "Already up to date: %s\n", tag)
+			return nil
+		}
+		fmt.Fprintf(w, "Already up to date: %s, continuing anyway\n", tag)
 	}
 	url := fmt.Sprintf("%s/releases/download/%s/%s.gz", Repository, tag, Filename)
 	fmt.Fprintf(w, "Downloading from %s\n", url)
