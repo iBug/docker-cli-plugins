@@ -5,6 +5,7 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/iBug/docker-ibug/pkg/docker"
+	"github.com/iBug/docker-ibug/pkg/namesgenerator"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 )
@@ -25,6 +26,14 @@ func formatCommand(s string) string {
 		s = s[:TruncateCommandLength-1] + "…"
 	}
 	return s
+}
+
+func formatFlags(container *types.Container) string {
+	fIsAutoName := "-"
+	if namesgenerator.IsAutoName(strings.TrimPrefix(container.Names[0], "/")) {
+		fIsAutoName = "A"
+	}
+	return fIsAutoName
 }
 
 func ps(cmd *cobra.Command, args []string) error {
@@ -52,7 +61,7 @@ func ps(cmd *cobra.Command, args []string) error {
 	for _, container := range containers {
 		table.Append([]string{
 			strings.TrimPrefix(container.Names[0], "/"),
-			".",
+			formatFlags(&container),
 			formatImage(container.Image),
 			formatCommand(container.Command),
 			container.Status,

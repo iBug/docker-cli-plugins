@@ -19,6 +19,6 @@ var (
 	Re = regexp.MustCompile(fmt.Sprintf("^(%s)_(%s)[0-9]?$", ls, rs))
 )
 
-func IsRandomName(s string) bool {
+func IsAutoName(s string) bool {
 	return Re.FindString(s) != ""
 }
