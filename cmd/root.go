@@ -10,7 +10,6 @@ import (
 var RootCmd = &cobra.Command{
 	Use:   "ibug",
 	Short: "iBug's Docker CLI plugin",
-	Long:  "iBug's Docker CLI plugin, but there's no feature implemented yet.",
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
 	},
@@ -19,5 +18,8 @@ var RootCmd = &cobra.Command{
 // MakeCmd implements the first argument for docker/cli/cli-plugins/plugin.Run
 func MakeCmd(cli command.Cli) *cobra.Command {
 	docker.Cli = cli
+	RootCmd.SetIn(cli.In())
+	RootCmd.SetOut(cli.Out())
+	RootCmd.SetErr(cli.Err())
 	return RootCmd
 }
