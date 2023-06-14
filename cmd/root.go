@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/docker/cli/cli/command"
+	"github.com/iBug/docker-ibug/pkg/docker"
 	"github.com/spf13/cobra"
 )
 
@@ -15,11 +16,8 @@ var RootCmd = &cobra.Command{
 	},
 }
 
-// DockerCli is the Docker CLI interface
-var DockerCli command.Cli
-
 // MakeCmd implements the first argument for docker/cli/cli-plugins/plugin.Run
-func MakeCmd(dockerCli command.Cli) *cobra.Command {
-	DockerCli = dockerCli
+func MakeCmd(cli command.Cli) *cobra.Command {
+	docker.Cli = cli
 	return RootCmd
 }

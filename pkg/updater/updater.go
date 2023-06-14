@@ -78,6 +78,7 @@ func DownloadFile(w *os.File, url string) error {
 	if err != nil {
 		return err
 	}
+	defer gz.Close()
 	_, err = io.Copy(w, gz)
 	return err
 }
